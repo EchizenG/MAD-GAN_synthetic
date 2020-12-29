@@ -37,8 +37,8 @@ def train_madgan(data, g_net, d_net, name='MADGAN',
     Gs = []
     for i in range(n_generators):
         # Common layers
-        feat1 = g_net.former1(zs, 'MADGAN_G', reuse=True if i > 0 else False)
-        feat2 = g_net.former2(feat1, 'MADGAN_G', reuse=True if i>0 else False)
+        feat1 = g_net.former(zs, 'MADGAN_G', reuse=True if i > 0 else False)
+        feat2 = g_net.former(feat1, 'MADGAN_G', reuse=True if i>0 else False)
 
         # Separated layers
         out = g_net.latter(feat2, 'MADGAN_G{}'.format(i))
