@@ -2,7 +2,6 @@
 # Tensorflow impl. of MAD-GAN (The 2nd alt.)
 # Same noise as input to all the generators
 
-from tensorflow.examples.tutorials.mnist import input_data
 from common import *
 from datasets import data_celeba, data_mnist
 from models.celeba_models import *
