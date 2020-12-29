@@ -134,6 +134,6 @@ def parse_args(batchsize=128, lr=1e-5, additional_args=[]):
 
 
 def set_gpu(gpu_id):
-    print "Override GPU setting: gpu={}".format(gpu_id)
+    print( "Override GPU setting: gpu={}".format(gpu_id))
     import os
     os.environ["CUDA_VISIBLE_DEVICES"] = "{}".format(gpu_id)

@@ -18,7 +18,7 @@ def eval_synthetic(it, gen, data, tag='', batch_size = 128, sampler=None):
         metrics['hq_ratio'] = data.get_hq_ratio(samples) * 100.0
         metrics['modes_ratio'] = data.get_n_modes(samples) / float(data.n_modes) * 100.0
 
-    print "{}({}) ".format(tag, it), ', '.join(['{}={:.2f}'.format(k, v) for k, v in metrics.iteritems()])
+    print( "{}({}) ".format(tag, it), ', '.join(['{}={:.2f}'.format(k, v) for k, v in metrics.iteritems()]))
 
     return metrics
 
@@ -75,6 +75,6 @@ def eval_images_naive(it, gen, data, tag='', sampler=None):
     
     # TODO: Impl. better metrics
 
-    print "Eval({}) ".format(it), ', '.join(['{}={:.2f}'.format(k, v) for k, v in metrics.iteritems()])
+    print("Eval({}) ".format(it), ', '.join(['{}={:.2f}'.format(k, v) for k, v in metrics.iteritems()]))
 
     return metrics

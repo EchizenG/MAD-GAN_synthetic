@@ -120,8 +120,8 @@ def train_madgan(data, g_net, d_net, name='MADGAN',
         _, cur_lr = sess.run([increment_step, lr])
 
         if it % PRNT_INTERVAL == 0:
-            print('{:10d}, {:1.4f}, {: 1.4f}, {: 1.4f}') \
-                    .format(it, cur_lr, loss_D, loss_G)
+            print(('{:10d}, {:1.4f}, {: 1.4f}, {: 1.4f}') \
+                    .format(it, cur_lr, loss_D, loss_G))
 
             # Tensorboard
             cur_summary = sess.run(summaries, feed_dict={x0: batch_xs, z0: sampler(batch_size, dim_z)})
@@ -134,7 +134,7 @@ def train_madgan(data, g_net, d_net, name='MADGAN',
             for i, output in enumerate(outputs):
                 figs[i] = data.plot(img_generator, gen_S = out_dir + gen_samples[i].format(it / 1000), data_S = out_dir + data_samples[i].format(it / 1000), fig_id=i, batch_size = batch_size)
                 figs[i].canvas.draw()
-	        if it % EVAL_INTERVAL == 0:
+            if it % EVAL_INTERVAL == 0:
                     plt.savefig(out_dir + fig_names[i].format(it / 1000), bbox_inches='tight')
             if PLT_CLOSE == 1:
                 plt.close()
@@ -153,7 +153,7 @@ if __name__ == '__main__':
     args = parse_args(additional_args=[
         ('--n_gen', {'type': int, 'default': 4}),
     ])
-    print args
+    print(args)
 
     if args.gpu:
         set_gpu(args.gpu)

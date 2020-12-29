@@ -28,7 +28,7 @@ class DCGAN_D(object):
 
             # TODO: Check the shape of x0
 
-            conv1 = conv2d('conv1', x, [self.k, self.k, 03, 64], stride=2, **kwargs)            # 64 x 64 => 32
+            conv1 = conv2d('conv1', x, [self.k, self.k, 3, 64], stride=2, **kwargs)            # 64 x 64 => 32
             conv2 = conv2d('conv2', conv1, [self.k, self.k, 64, 128], stride=2, **kwargs)       # 32 x 32 => 16
             conv3 = conv2d('conv3', conv2, [self.k, self.k, 128, 256], stride=2, **kwargs)      # 16 x 16 => 8
             conv4 = conv2d('conv4', conv3, [self.k, self.k, 256, 512], stride=2, **kwargs)      # 8 x 8 => 4

@@ -22,7 +22,7 @@ class SimpleCNN(object):
 
             # TODO: Check the shape of x0
 
-            conv1 = conv2d('conv1_1', x, [self.k, self.k, 01, 32], stride=2, **kwargs)        # 28 x 28 => 14
+            conv1 = conv2d('conv1_1', x, [self.k, self.k, 1, 32], stride=2, **kwargs)        # 28 x 28 => 14
             conv2 = conv2d('conv2_1', conv1, [self.k, self.k, 32, 64], stride=2, **kwargs)    # 14 x 14 => 7
 
         return conv2
@@ -87,7 +87,7 @@ class SimpleGEN(object):
 
             kwargs['bn'] = False  # Last layer only
             kwargs['act'] = tf.identity
-            h = deconv2d('deconv2', h, [-1, 28, 28, 01], [self.k, self.k, 01, 32], stride=2, **kwargs)
+            h = deconv2d('deconv2', h, [-1, 28, 28, 1], [self.k, self.k, 1, 32], stride=2, **kwargs)
             h = self.last_act(h, 'out')
 
         return h
