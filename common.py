@@ -28,7 +28,7 @@ def sample_z(m, n):
 
 def create_dirs(name, g_name, d_name, hyperparams=None):
     base_dir = 'out/{}_{}_{}/'.format(name, g_name, d_name) \
-                + '_'.join(['{}={}'.format(k,v) for (k,v) in hyperparams.iteritems()])
+                + '_'.join(['{}={}'.format(k,v) for (k,v) in hyperparams.items()])
 
     out_dir = os.path.join(base_dir, 'out/')
     log_dir = os.path.join(base_dir, 'log/')
