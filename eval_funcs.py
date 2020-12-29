@@ -1,6 +1,6 @@
 from collections import OrderedDict
 import numpy as np
-from skimage.measure import compare_ssim as ssim
+from skimage import measure
 
 
 # TODO: Refactoring
@@ -61,7 +61,7 @@ def eval_images_naive(it, gen, data, tag='', sampler=None):
 
     # Please refer to https://en.wikipedia.org/wiki/Structural_similarity
     # compare_ssim assumes (W, H, C) ordering
-    sim_func = lambda a, b: ssim(a, b, multichannel=True, data_range=2.0)
+    sim_func = lambda a, b: measure.compare_ssim(a, b, multichannel=True, data_range=2.0)
 
     # Similarity: (generated samples) x (top-k candidates)
     sim = [[sim_func(samples[i], true_samples[i_true]) for i_true in i_topk] \
