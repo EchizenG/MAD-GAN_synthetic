@@ -7,7 +7,9 @@ from datasets import data_celeba, data_mnist
 from models.celeba_models import *
 from models.mnist_models import *
 from eval_funcs import *
+import ssl
 
+ssl._create_default_https_context = ssl._create_unverified_context
 
 def train_madgan(data, g_net, d_net, name='MADGAN',
                  dim_z=128, n_iters=1e5, lr=1e-4, batch_size=128,
@@ -38,10 +40,10 @@ def train_madgan(data, g_net, d_net, name='MADGAN',
     for i in range(n_generators):
         # Common layers
         feat1 = g_net.former(zs, 'MADGAN_G', reuse=True if i > 0 else False)
-        feat2 = g_net.former(feat1, 'MADGAN_G', reuse=True if i>0 else False)
+#        feat2 = g_net.former(feat1, 'MADGAN_G', reuse=True if i>0 else False)
 
         # Separated layers
-        out = g_net.latter(feat2, 'MADGAN_G{}'.format(i))
+        out = g_net.latter(feat1, 'MADGAN_G{}'.format(i))
         Gs.append(out)
 
         # TODO: (experiments) How about sharing later layers only?
@@ -98,8 +100,8 @@ def train_madgan(data, g_net, d_net, name='MADGAN',
 
     writer = tf.summary.FileWriter(log_dir, sess.graph)
 
-    print('{:>10}, {:>7}, {:>7}, {:>7}') \
-        .format('Iters', 'cur_LR', 'MADGAN_D', 'MADGAN_G')
+    print(('{:>10}, {:>7}, {:>7}, {:>7}') \
+        .format('Iters', 'cur_LR', 'MADGAN_D', 'MADGAN_G'))
 
     it = 0
     while it < 1000000:
@@ -131,10 +133,10 @@ def train_madgan(data, g_net, d_net, name='MADGAN',
             img_generator = lambda n: sess.run(output, feed_dict={z0: sampler(n/n_generators, dim_z)})
 
             for i, output in enumerate(outputs):
-                figs[i] = data.plot(img_generator, gen_S = out_dir + gen_samples[i].format(it / 1000), data_S = out_dir + data_samples[i].format(it / 1000), fig_id=i, batch_size = batch_size)
+                figs[i] = data.plot(img_generator, gen_S = out_dir + gen_samples[i].format(int(it / 1000)), data_S = out_dir + data_samples[i].format(int(it / 1000)), fig_id=i, batch_size = batch_size)
                 figs[i].canvas.draw()
             if it % EVAL_INTERVAL == 0:
-                    plt.savefig(out_dir + fig_names[i].format(it / 1000), bbox_inches='tight')
+                    plt.savefig(out_dir + fig_names[i].format(int(it / 1000)), bbox_inches='tight')
             if PLT_CLOSE == 1:
                 plt.close()
             # Run evaluation functions
